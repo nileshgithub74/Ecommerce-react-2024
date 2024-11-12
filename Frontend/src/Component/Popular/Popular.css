@@ -1,0 +1,75 @@
+.popular {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 90vh;
+  flex-direction: column;
+}
+
+.popular h1 {
+  color: #171717;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 5px; /* Reduced space below the heading */
+}
+
+.popular hr {
+  width: 300px;
+  height: 2px;
+  border-radius: 10px;
+  margin-top: 5px; /* Reduced margin-top to bring hr closer to the h1 */
+  background: #252525;
+}
+
+.popular-item {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+  flex-wrap: nowrap; /* Keeps all items in a single row */
+  overflow-x: auto; 
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+/* Smaller Item CSS */
+.item {
+  min-width: 150px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.item img {
+  width: 100%;
+  height: 250px;
+  border-radius: 4px;
+}
+
+.item p {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 8px 0;
+  color: #333;
+}
+
+.item-price {
+  display: flex;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.item-price-new {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.item-price-old {
+  color: #9e9e9e;
+  text-decoration: line-through;
+}

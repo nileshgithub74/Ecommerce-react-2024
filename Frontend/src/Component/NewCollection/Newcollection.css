@@ -1,0 +1,79 @@
+.collection-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 100px;
+}
+
+.collection-container h1 {
+  color: #171717;
+  font-size: 30px; /* Further reduced heading size */
+  font-weight: 600;
+  margin-bottom: 5px; /* Reduce space below the heading */
+}
+
+.collection-container hr {
+  width: 200px;
+  height: 1px;
+  border-radius: 5px;
+  background: #989898;
+  margin-bottom: 34px; /* Reduced margin-top to bring hr closer to the h1 */
+}
+
+.collection-items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+  gap: 10px; /* Reduce gap between items */
+  width: 100%;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+/* Much Smaller Item CSS */
+.item {
+  min-width: 80px;  /* Reduced width further */
+  padding: 4px;     /* Smaller padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.item:hover {
+  transform: scale(1.05);
+}
+
+.item img {
+  width: 100%;    /* Keep image width same as item */
+  height: 250px;   /* Further reduced image height */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.item p {
+  font-size: 10px;   /* Smaller font size for text */
+  font-weight: 500;
+  margin: 4px 0;     /* Reduced margin */
+  color: #333;
+}
+
+.item-price {
+  display: flex;
+  gap: 5px;
+  font-size: 8px;    /* Even smaller price text */
+}
+
+.item-price-new {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.item-price-old {
+  color: #9e9e9e;
+  text-decoration: line-through;
+}

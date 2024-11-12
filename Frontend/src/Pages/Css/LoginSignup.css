@@ -1,0 +1,89 @@
+.loginsignup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background:linear-gradient(180deg,#fde1ff,#e1ffea22 60%);
+}
+
+.form-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input-field {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-field input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-top: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.input-field input:focus {
+  border-color: #6f7dff;
+  outline: none;
+}
+
+.input-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 18px;
+  color: #aaa;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  color: #6f7dff;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #6f7dff;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #4a56e2;
+}
+
+.toggle-form p {
+  font-size: 14px;
+  color: #6f7dff;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.toggle-form p:hover {
+  text-decoration: underline;
+}

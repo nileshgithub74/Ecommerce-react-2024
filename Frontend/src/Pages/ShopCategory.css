@@ -1,0 +1,116 @@
+.shop-category {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.shop-category img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shopcategory-indexsort {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  padding: 10px 15px;
+  background-color: #f7f7f7; /* Light background to make it stand out */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.shopcategory-indexsort p {
+  font-size: 16 px;
+  color: #333;
+  margin: 0;
+}
+
+.shopcategory-indexsort .shopcategory-sort {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.shopcategory-indexsort .shopcategory-sort img {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+}
+
+.shopcategory-indexsort span {
+  font-weight: 600;
+  color: #007BFF; /* Highlighted color for 'Showing' text */
+}
+
+.shopcategory-product {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.shopcategory-product .item {
+  background-color: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.shopcategory-product .item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.shopcategory-product .item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.shopcategory-product .item p {
+  font-size: 10px;   /* Smaller font size for text */
+  font-weight: 500;
+  margin: 4px 0;     /* Reduced margin */
+  color: #333;
+}
+
+.shopcategory-product .item-price {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.shopcategory-product .item-price-new {
+  color: #e53935;
+  font-weight: bold;
+}
+
+.shopcategory-product .item-price-old {
+  text-decoration: line-through;
+  color: #7f8c8d;
+}
+
+.shopcategory-loadmore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 150px auto;
+  width: 233px;
+  height: 69px;
+  border-radius: 75px;
+  background: #eddede;
+  color: #787878;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.shopcategory-loadmore:hover {
+  background: #d3d3d3;
+}
