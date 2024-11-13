@@ -31,6 +31,11 @@ const Navbar = () => {
           <Link to='/kids' style={{ textDecoration: 'none' }}>Kids</Link>
           {menu === "kids" ? <hr /> : null}
         </li>
+
+        <li onClick={() => setMenu("about")}>
+          <Link to='/kids' style={{ textDecoration: 'none' }}>About </Link>
+          {menu === "about" ? <hr /> : null}
+        </li>
       </ul>
 
       <div className="nav-login-cart">
