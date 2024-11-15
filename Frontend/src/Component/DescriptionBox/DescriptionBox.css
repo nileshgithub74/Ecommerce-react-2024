@@ -1,0 +1,49 @@
+.DescriptionBox {
+  width: 100vw; /* Full viewport width */
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border: 2px solid #ddd; /* Increased border width */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.descriptionbox-navigator {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.descriptiobox-nav-box {
+ border: 0.5px solid #828282;
+ border-radius: 5px;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.descriptiobox-nav-box:hover {
+  background-color: #f0f0f0;
+  color: #007bff;
+}
+
+.descriptiobox-nav-box.fade {
+  color: #5c5959;
+  font-weight: normal;
+}
+
+.descriptionbox-description {
+  padding: 10px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.descriptionbox-description p {
+  margin: 1rem 0;
+  font-size: 14px;
+}

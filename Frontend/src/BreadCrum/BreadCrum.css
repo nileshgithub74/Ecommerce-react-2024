@@ -1,0 +1,29 @@
+.breadcrum {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+}
+
+.breadcrum span {
+  margin-right: 0.5rem;
+  cursor: pointer;
+  color: #040404;
+  transition: color 0.3s ease;
+}
+
+.breadcrum span:hover {
+  color: #0056b3;
+}
+
+.breadcrum img {
+  margin: 0 0.5rem;
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+  vertical-align: middle;
+}
