@@ -1,11 +1,19 @@
 import './Navbar.css';
 import logo from '../../Assets/Frontend_Assets/logo.png';
 import cart_icon from '../../Assets/Frontend_Assets/cart_icon.png';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { ShopContext } from '../../Context/ShopContext';  
 
 const Navbar = () => {
   const [menu, setMenu] = useState("shop");
+
+
+  const { cartItems } = useContext(ShopContext);
+
+  const getTotalCartCount = () => {
+    return Object.values(cartItems).reduce((acc, quantity) => acc + quantity, 0);
+  };
 
   return (
     <div className="navbar">
@@ -31,9 +39,8 @@ const Navbar = () => {
           <Link to='/kids' style={{ textDecoration: 'none' }}>Kids</Link>
           {menu === "kids" ? <hr /> : null}
         </li>
-
         <li onClick={() => setMenu("about")}>
-          <Link to='/kids' style={{ textDecoration: 'none' }}>About </Link>
+          <Link to='/about' style={{ textDecoration: 'none' }}>About</Link>
           {menu === "about" ? <hr /> : null}
         </li>
       </ul>
@@ -43,8 +50,12 @@ const Navbar = () => {
           <button>Login</button>
         </Link>
         <div className="nav-cart">
-          <img src={cart_icon} alt="Cart Icon" />
-          <div className="nav-cart-count">0</div>
+          <Link to='/cart'>
+            <img src={cart_icon} alt="Cart Icon" />
+          </Link>
+          <div className="nav-cart-count">
+            {getTotalCartCount()} 
+          </div>
         </div>
       </div>
     </div>

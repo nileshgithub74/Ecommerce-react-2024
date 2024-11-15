@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom'; 
 import './Item.css';
 
 const Item = (props) => {
   return (
     <div className="item">
-      <Link to={`/product/${props.id}`}> {/* Corrected: Replaced 'link' with 'Link' */}
-        <img src={props.image} alt="" />
+      <Link to={`/product/${props.id}`}>
+        <img onClick={window.scrollTo(0,0)}    src={props.image} alt="" />
       </Link>
       <p>{props.name}</p>
 

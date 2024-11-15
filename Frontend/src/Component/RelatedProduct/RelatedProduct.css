@@ -1,0 +1,77 @@
+.relatedproducts {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+}
+
+.relatedproducts h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+.relatedproducts hr {
+  border: 1px solid #ddd;
+  margin-bottom: 2rem;
+}
+
+.realtedproducts-items {
+  display: flex;
+  flex-direction: row; /* Ensures items are aligned in a row */
+  gap: 2rem; /* Increased gap between items */
+  justify-content: flex-start; /* Align items to the left */
+  flex-wrap: nowrap; /* Prevent items from wrapping to the next line */
+}
+
+.realtedproducts-items .item {
+  width: 220px; /* Reduced card size */
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.realtedproducts-items .item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.realtedproducts-items img {
+  width: 100%; /* Ensure image fills the card width */
+  height: auto;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.realtedproducts-items .item-details {
+  padding: 1rem;
+}
+
+.realtedproducts-items .item-name {
+  font-size: 1.1rem; /* Slightly smaller font size */
+  font-weight: bold;
+  color: #333;
+}
+
+.realtedproducts-items .item-price {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.realtedproducts-items .item-price .old-price {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.realtedproducts-items .item-price .new-price {
+  font-size: 1.2rem; /* Slightly smaller new price font size */
+  font-weight: bold;
+  color: #e63946;
+}

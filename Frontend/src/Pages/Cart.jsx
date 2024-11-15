@@ -1,7 +1,12 @@
+import CardItems from "../Component/CartItems/CardItems"
+
 
 const Cart = () => {
   return (
-    <div>Cart</div>
+    <div>
+     <CardItems></CardItems>
+
+    </div>
   )
 }
 
