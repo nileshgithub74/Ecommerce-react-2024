@@ -131,6 +131,72 @@ app.post("/addproduct", async (req, res) => {
   }
 });
 
+
+
+// Remove Product Endpoint
+app.post('/removeproduct', async (req, res) => {
+
+  await Product.findOneAndDelete({id:req.body.id});
+  console.log("Removed");
+  res.json({
+    success:true,
+    name:req.body.name,
+  })
+
+});
+
+
+
+
+
+/// creating api to get all the product
+
+app.get('/allproducts', async( req,res)=>{
+  let products = await Product.find({});
+  console.log("All products fectched");
+  res.send(products);
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server Running on Port ${port}`);
