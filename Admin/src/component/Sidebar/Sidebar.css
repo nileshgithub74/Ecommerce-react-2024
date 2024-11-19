@@ -1,0 +1,90 @@
+/* Basic sidebar styles */
+.sidebar {
+  width: 250px;
+  height: 200vh;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 30px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar item for "Add Product" and "Product List" */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  margin: 0px 20px;
+  border-radius: 5px;
+  background: #f6f6f6;
+  gap: 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sidebar-item:hover {
+  background: #e0e0e0; /* Darker hover color */
+}
+
+.sidebar-icon {
+  width: 20px; /* Adjust icon size */
+  height: 20px;
+}
+
+/* Sidebar text (p tag) inside items */
+.sidebar-item p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333; /* Set text color to dark for contrast */
+}
+
+/* Sidebar links */
+.sidebar-links {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li {
+  margin: 10px 0;
+}
+
+.sidebar-links li a {
+  display: block;
+  color: #333; /* Set text color for links */
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar-links li a:hover {
+  background-color: #444;
+  color: #fff; /* Text color on hover */
+}
+
+/* Active link styles */
+.sidebar-links li a.active {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Adjust sidebar width for mobile */
+    padding-top: 10px;
+  }
+
+  .sidebar-item p {
+    font-size: 14px; /* Adjust font size for mobile */
+  }
+
+  .sidebar-links li a {
+    font-size: 16px;
+  }
+}
