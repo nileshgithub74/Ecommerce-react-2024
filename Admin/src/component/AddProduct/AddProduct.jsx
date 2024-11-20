@@ -3,13 +3,13 @@ import upload_area from '../../assets/upload_area.svg';
 import { useState } from 'react';
 
 const AddProduct = () => {
-  const [image, setImage] = useState(null); // Initialize with null
+  const [image, setImage] = useState(null); 
   const [productDetail, setProductDetail] = useState({
     name: "",
     category: "women",
     new_price: "",
     old_price: "",
-    available: true, // Default value for availability
+    available: true, 
   });
 
   // Handler for input changes
@@ -47,7 +47,7 @@ const AddProduct = () => {
         image: uploadData.image_url, // Set the uploaded image URL
       };
 
-      const response = await fetch('http://localhost:4000/addproduct', {
+      const response = await fetch('http://localhost:4000/addproducts', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

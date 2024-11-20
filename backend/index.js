@@ -47,7 +47,10 @@ if (!fs.existsSync(dir)) {
 // Serve uploaded images
 app.use("/images", express.static(path.join(__dirname, "./upload/images")));
 
-// Image upload endpoint
+
+
+
+
 app.post("/upload", upload.single("product"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: 0, message: "No file uploaded" });
@@ -95,9 +98,9 @@ const Product = mongoose.model("Product", {
 });
 
 // Add Product Endpoint
-app.post("/addproduct", async (req, res) => {
+app.post("/addproducts", async (req, res) => {
   try {
-    // Generate auto-incremented `id`
+   
     const lastProduct = await Product.findOne().sort({ id: -1 });
     const newId = lastProduct ? lastProduct.id + 1 : 1;
 
@@ -251,3 +254,37 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Get All Products with Pagination and Search
+app.get("/allproduct", async (req, res) => {
+  const { page = 1, limit = 10, search = "", category = "" } = req.query;
+
+  try {
+    // Construct query based on search and category filters
+    const query = {
+      ...(search && { name: new RegExp(search, "i") }), // Case-insensitive search
+      ...(category && { category }),
+    };
+
+    // Fetch products with pagination
+    const products = await Product.find(query)
+      .skip((page - 1) * Number(limit))
+      .limit(Number(limit));
+
+    // Get total count of matching documents
+    const total = await Product.countDocuments(query);
+
+    // Send success response
+    res.status(200).json({
+      success: true,
+      message: "Products fetched successfully",
+      data: { products, total },
+    });
+  } catch (error) {
+    // Send error response
+    res.status(500).json({
+      success: false,
+      message: "Error fetching products",
+      error: error.message,
+    });
+  }
+});
