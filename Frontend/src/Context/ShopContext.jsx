@@ -1,19 +1,34 @@
 import { createContext, useState, useCallback } from "react";
 import PropTypes from "prop-types";
-import all_product from "../Assets/Frontend_Assets/all_product.js";
+import { useEffect } from "react";
+
 
 export const ShopContext = createContext(null);
 
 // Initialize the cart with product IDs as keys and values set to 0
 const getDefaultCart = () => {
   let cart = {};
-  all_product.forEach((product) => {
-    cart[product.id] = 0; // Use product ID as key
-  });
+  for(let i=0; i<300+1; i++){
+    cart[i] =0;
+  }
+ 
   return cart;
 };
 
 const ShopContextProvider = (props) => {
+
+  const[all_product, setAll_product] = useState([]);
+  
+  useEffect(()=>{
+    fetch('http://localhost:4000/allproduct').then((res)=>res.json()).then((data)=>setAll_product(data))
+
+  },[])
+
+
+
+
+
+
   const [cartItems, setCartItems] = useState(getDefaultCart());
 
   // Function to add an item to the cart
@@ -60,3 +75,5 @@ ShopContextProvider.propTypes = {
 };
 
 export default ShopContextProvider;
+
+

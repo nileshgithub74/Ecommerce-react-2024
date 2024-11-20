@@ -7,20 +7,8 @@ const ListProduct = () => {
   const [error, setError] = useState("");
 
   const fetchInfo = async () => {
-    try {
-      const response = await fetch("http://localhost:4000/allproduct?page=1&limit=10"); // Add pagination if needed
-      if (!response.ok) throw new Error(`Error: ${response.status}`);
-      const data = await response.json();
-
-      if (data.success) {
-        setAllProducts(data.data.products); // Access products from `data`
-      } else {
-        setError(data.message || "Failed to fetch products");
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setError("Failed to fetch products");
-    }
+    await fetch('http://localhost:4000/allproduct').then((res)=>res.json()).then((data)=>{setAllProducts(data)})
+    
   };
 
   useEffect(() => {

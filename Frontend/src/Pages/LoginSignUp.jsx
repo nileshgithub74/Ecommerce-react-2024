@@ -12,13 +12,14 @@ const LoginSignUp = () => {
   const handleError = (message) => {
     alert(message); // Show the error in an alert box
   };
-
   const login = async () => {
-    if (!identifier || !password) {
-      handleError("Please provide a username or email and a password.");
+    if (!email || !password) {
+      handleError("Please provide an email and password.");
       return;
     }
-
+  
+    console.log("Logging in with email:", email, "password:", password); // Debugging line
+  
     try {
       const response = await fetch("http://localhost:4000/login", {
         method: "POST",
@@ -26,22 +27,25 @@ const LoginSignUp = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          identifier, 
+          email,  // Use email here
           password,
         }),
       });
-
+  
       const data = await response.json();
+      console.log('Login response data:', data);  // Debugging line
+  
       if (data.success) {
         localStorage.setItem("token", data.token);
-        window.location.href = "/"; 
+        window.location.href = "/"; // Redirect to home page after successful login
       } else {
         handleError(data.error || "Login failed.");
       }
     } catch (err) {
-      handleError("An error occurred during login.",err);
+      handleError("An error occurred during login.", err);
     }
   };
+  
 
   const signup = async () => {
     if (!username || !email || !password || !confirmPassword) {
