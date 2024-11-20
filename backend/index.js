@@ -170,11 +170,8 @@ app.listen(port, () => {
 
 
 
-
-
-// Schema for creating the user model
-
-const user = mongoose.model('Users', {
+// Rename the 'user' model to 'UserModel' to avoid conflict
+const UserModel = mongoose.model('Users', {
   name: {
     type: String,
   },
@@ -195,13 +192,8 @@ const user = mongoose.model('Users', {
 });
 
 // Creating the endpoint for registering the user
-
 app.post('/signup', async (req, res) => {
-  let check = await user.findOne({ email: req.body.email });
-
-
-
-
+  let check = await UserModel.findOne({ email: req.body.email });
 
   if (check) {
     return res.status(400).json({ success: false, errors: "Existing Users found with the same email" });
@@ -212,7 +204,7 @@ app.post('/signup', async (req, res) => {
     cart[i] = 0;
   }
 
-  const newUser = new user({
+  const newUser = new UserModel({
     name: req.body.username,
     email: req.body.email,
     password: req.body.password,
@@ -231,45 +223,26 @@ app.post('/signup', async (req, res) => {
   res.json({ success: true, token });
 });
 
-
-
-// // Creating the endpoint for logging in the user
-
-
+// Creating the endpoint for logging in the user
 app.post('/login', async (req, res) => {
-  let user = await Users.findOne({email:req.body.email})
+  let user = await UserModel.findOne({email:req.body.email}); // Renamed from 'user' to 'UserModel'
 
-  if(user){
+  if (user) {
     const passcompare = req.body.password === user.password;
-    if(passcompare){
-      const data ={
-        user:{
-          id:user.id,
+    if (passcompare) {
+      const data = {
+        user: {
+          id: user.id,
         }
-      }
+      };
 
       const token = jwt.sign(data, 'secret_ecom');
-      res.json({success:true, token});
+      res.json({success: true, token});
+    } else {
+      res.status(400).json({success: false, errors: "Wrong password"});
     }
 
-    else{
-      res.json({success:false, errors:"Wrong password"});
-    }
-
-  }else{
-    res.json({success:false, errors:"Wrong Email id"});
+  } else {
+    res.status(400).json({success: false, errors: "Wrong Email id"});
   }
-
-
-
-   
 });
-
-
-
-
-
-
-
-
-
