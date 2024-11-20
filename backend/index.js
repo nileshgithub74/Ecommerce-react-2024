@@ -145,118 +145,109 @@ app.post('/removeproduct', async (req, res) => {
 
 });
 
+// Start the server
+app.listen(port, () => {
+  console.log(`Server Running on Port ${port}`);
+});
 
 
 
-
-/// creating api to get all the product
-
-app.get('/allproducts', async( req,res)=>{
-  let products = await Product.find({});
-  console.log("All products fectched");
-  res.send(products);
-
-})
 
 
 
 // Schema for creating the user model
 
-const user = mongoose.model('Users',{
-  name:{
-    type:String,
-    
+const user = mongoose.model('Users', {
+  name: {
+    type: String,
   },
-  email:{
-    type:String,
-    unique:true,
+  email: {
+    type: String,
+    unique: true,
   },
-  password:{
-    type:String,
+  password: {
+    type: String,
   },
-  cartData:{
-    type:Object,
-  },date:{
-    type: date,
-    default:Date.now,
-  }, 
-})
+  cartData: {
+    type: Object,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
+// Creating the endpoint for registering the user
+
+app.post('/signup', async (req, res) => {
+  let check = await user.findOne({ email: req.body.email });
 
 
-// creating the endpoint for registering the user
 
-app.post('/signup', async (req,res)=>{
-  let check = await Users.findOne({email:res.body.email});
-  if(check){
-    return res.status(400).json({success:false, errors:"Existing Users found with the same email"})
+
+
+  if (check) {
+    return res.status(400).json({ success: false, errors: "Existing Users found with the same email" });
   }
 
   let cart = {};
-  for(let i=0; i< 300; i++){
-    cart[i] =0;
-
+  for (let i = 0; i < 300; i++) {
+    cart[i] = 0;
   }
-  const user = new Users({
-    name:req.body.username,
-    email:req.body.email,
-    password:req.body.password,
-    cartData:cart,
 
+  const newUser = new user({
+    name: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    cartData: cart,
   });
 
-  await user.save();
+  await newUser.save();
 
-   const data = {
-    user:{
-      id:user.id,
+  const data = {
+    user: {
+      id: newUser.id,
     }
-   }
+  };
 
-   const token = jwt.sign(data, 'secret_ecom');
-   res.json({success:true,token})
-  
-
-
-
-
-})
-
-
-
-                                                                                                       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Start the server
-app.listen(port, () => {
-  console.log(`Server Running on Port ${port}`);
+  const token = jwt.sign(data, 'secret_ecom');
+  res.json({ success: true, token });
 });
+
+
+
+// // Creating the endpoint for logging in the user
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if the user exists in the database
+    let existingUser = await user.findOne({ email });
+    if (!existingUser) {
+      return res.status(400).json({ success: false, error: "User not found" });
+    }
+
+    // Compare the password (Assuming passwords are stored hashed, use bcrypt to compare)
+    const isMatch = await bcrypt.compare(password, existingUser.password);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, error: "Invalid credentials" });
+    }
+
+    // Generate a JWT token after successful login
+    const data = {
+      user: {
+        id: existingUser.id,
+      }
+    };
+
+    const token = jwt.sign(data, 'secret_ecom', { expiresIn: '1h' });
+
+    // Return success with the generated token
+    res.json({ success: true, token });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ success: false, error: "Server error" });
+  }
+});
+
