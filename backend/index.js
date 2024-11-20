@@ -237,44 +237,32 @@ app.post('/signup', async (req, res) => {
 
 
 app.post('/login', async (req, res) => {
-  const { identifier, password } = req.body;
+  let user = await Users.findOne({email:req.body.email})
 
-  if (!identifier) {
-    return res.status(400).json({ success: false, error: "Identifier (email or username) is required" });
-  }
-
-  try {
-    let existingUser;
-    
-    // Check if identifier is an email or username
-    if (identifier.includes('@')) {
-      existingUser = await user.findOne({ email: identifier });
-    } else {
-      existingUser = await user.findOne({ username: identifier });
-    }
-
-    if (!existingUser) {
-      return res.status(400).json({ success: false, error: "User not found" });
-    }
-
-    const isMatch = await bcrypt.compare(password, existingUser.password);
-    if (!isMatch) {
-      return res.status(400).json({ success: false, error: "Invalid credentials" });
-    }
-
-    const data = {
-      user: {
-        id: existingUser.id,
+  if(user){
+    const passcompare = req.body.password === user.password;
+    if(passcompare){
+      const data ={
+        user:{
+          id:user.id,
+        }
       }
-    };
 
-    const token = jwt.sign(data, 'secret_ecom', { expiresIn: '1h' });
+      const token = jwt.sign(data, 'secret_ecom');
+      res.json({success:true, token});
+    }
 
-    res.json({ success: true, token });
-  } catch (err) {
-    console.error("Error during login:", err);
-    res.status(500).json({ success: false, error: "Server error" });
+    else{
+      res.json({success:false, errors:"Wrong password"});
+    }
+
+  }else{
+    res.json({success:false, errors:"Wrong Email id"});
   }
+
+
+
+   
 });
 
 
@@ -285,50 +273,3 @@ app.post('/login', async (req, res) => {
 
 
 
-
-
-// // Get All Products with Pagination and Search
-
-// app.get("/allproduct", async (req, res) => {
-//   const { page = 1, limit = 10, search = "", category = "" } = req.query;
-
-//   // Validate page and limit parameters
-//   const pageNum = Math.max(1, parseInt(page, 10)); // Default to 1 if invalid
-//   const limitNum = Math.max(1, Math.min(100, parseInt(limit, 10))); // Default to 10, max 100
-
-//   try {
-//     // Build the query object
-//     const query = {
-//       ...(search && { name: new RegExp(search, "i") }), 
-//       ...(category && { category })
-//     };
-
-//     // Fetch products with pagination
-//     const products = await Product.find(query)
-//       .skip((pageNum - 1) * limitNum)
-//       .limit(limitNum);
-
-//     // Get total product count based on query
-//     const total = await Product.countDocuments(query);
-
-//     // Send success response
-//     res.status(200).json({
-//       success: true,
-//       message: "Products fetched successfully",
-//       data: {
-//         products,
-//         total,
-//         page: pageNum,
-//         limit: limitNum,
-//         totalPages: Math.ceil(total / limitNum),
-//       },
-//     });
-//   } catch (error) {
-//     console.error("Error fetching products:", error); // Log the error
-//     res.status(500).json({
-//       success: false,
-//       message: "Error fetching products",
-//       error: error.message,
-//     });
-//   }
-// });
