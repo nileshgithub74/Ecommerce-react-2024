@@ -31,7 +31,7 @@ const ShopContextProvider = (props) => {
 
   const [cartItems, setCartItems] = useState(getDefaultCart());
 
-  // Function to add an item to the cart
+ 
   const addToCart = useCallback((itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
   }, []);

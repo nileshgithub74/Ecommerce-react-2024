@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
 const cors = require("cors");
-require("dotenv").config(); // To use environment variables
+require("dotenv").config(); 
 
 const app = express();
 
@@ -13,11 +13,33 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB connection
-mongoose
-  .connect(
-    process.env.MONGODB_URI ||
-      "mongodb+srv://nilesh:nileshkumar@cluster0.qbeje.mongodb.net/yourDBName"
-  );
+
+
+
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb+srv://nilesh:nileshkumar@cluster0.qbeje.mongodb.net/yourDBName",
+  {
+  
+    
+    serverSelectionTimeoutMS: 30000, // Adjust to 30 seconds
+    socketTimeoutMS: 45000,         // Adjust to 45 seconds
+  }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // API home route
 app.get("/", (req, res) => {
@@ -225,8 +247,7 @@ app.post('/signup', async (req, res) => {
 
 // Creating the endpoint for logging in the user
 app.post('/login', async (req, res) => {
-  let user = await UserModel.findOne({email:req.body.email}); // Renamed from 'user' to 'UserModel'
-
+  let user = await UserModel.findOne({email:req.body.email}); 
   if (user) {
     const passcompare = req.body.password === user.password;
     if (passcompare) {
@@ -246,3 +267,19 @@ app.post('/login', async (req, res) => {
     res.status(400).json({success: false, errors: "Wrong Email id"});
   }
 });
+
+
+
+
+
+
+// creating endpoint for new collection data
+
+
+app.get('/newcollection',async(req,res)=>{
+  let products = await Product.find({});
+
+  let newcollection  = products.slice(1).splice(-8);
+  console.log("new COllection fetched");
+  res.send(newcollection);
+})
