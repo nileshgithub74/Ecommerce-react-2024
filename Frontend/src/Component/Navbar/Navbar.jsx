@@ -43,8 +43,8 @@ const Navbar = () => {
       </ul>
 
       <div className="nav-login-cart">
-        <Link to="/login">
-          <button>Login</button>
+        <Link to="/login"  style={{ textDecoration: 'none' }}>
+          <button   >Login</button>
         </Link>
         <div className="nav-cart">
           <Link to='/cart'>

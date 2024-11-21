@@ -8,6 +8,7 @@ import drop_down from "../Assets/Frontend_Assets/dropdown_icon.png";
 import Item from "../Component/Item/Item";
 
 const ShopCategory = (props) => {
+
   const { all_product } = useContext(ShopContext);
 
 

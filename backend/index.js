@@ -283,3 +283,39 @@ app.get('/newcollection',async(req,res)=>{
   console.log("new COllection fetched");
   res.send(newcollection);
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// payment gateway
+
+
+
+
+const stripe = require('stripe')('sk_test_51QNVRfK0MnJ6utZuh1IJHh7nhkMXZ5asp1NWKO67Roi2yzxfptD5TAjj2KpGCuPnaEkIJJG9nx30c8R410FukvZJ00TCk1iycW');
+
+app.post('/create-payment-intent', async (req, res) => {
+  const { amount } = req.body;
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: amount * 100, // Amount in cents
+      currency: 'usd',
+    });
+
+    res.json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
