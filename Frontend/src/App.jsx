@@ -15,32 +15,32 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 
-// Initialize Stripe
-const stripePromise = loadStripe("pk_test_51QNVRfK0MnJ6utZufu9hEQ1aN5I3XYT9Y3PSscdbpDcYiJIu5Z1lFq04mdz5mEl2rEemjRV5rwA1a1bzThM8XQhW00ytJSjzy3"); // Replace with your actual public key
+
+
+const stripePromise = loadStripe("pk_test_51QNVRfK0MnJ6utZufu9hEQ1aN5I3XYT9Y3PSscdbpDcYiJIu5Z1lFq04mdz5mEl2rEemjRV5rwA1a1bzThM8XQhW00ytJSjzy3"); 
 
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        {/* Main Shop Route */}
+     
         <Route path='/' element={<Shop />} />
 
-        {/* Category Routes */}
+     
         <Route path='/mens' element={<ShopCategory banner={men_banner} category="men" />} />
         <Route path='/womens' element={<ShopCategory banner={womens_banner} category="women" />} />
         <Route path='/kids' element={<ShopCategory banner={kids_banner} category="kid" />} />
 
-        {/* Dynamic Product Route */}
+      
         <Route path='/product/:productId' element={<Product />} />
-        
-        {/* Cart Route */}
         <Route path='/cart' element={<Cart />} />
 
-        {/* Login/Signup Route */}
+      
         <Route path='/login' element={<LoginSignUp />} />
+       
 
-        {/* Checkout Route wrapped in Elements provider for Stripe */}
+     
         <Route 
           path='/checkout' 
           element={

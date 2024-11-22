@@ -21,24 +21,10 @@ mongoose.connect(
   {
   
     
-    serverSelectionTimeoutMS: 30000, // Adjust to 30 seconds
-    socketTimeoutMS: 45000,         // Adjust to 45 seconds
+    serverSelectionTimeoutMS: 30000, 
+    socketTimeoutMS: 45000,         
   }
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // API home route
@@ -192,7 +178,7 @@ app.listen(port, () => {
 
 
 
-// Rename the 'user' model to 'UserModel' to avoid conflict
+
 const UserModel = mongoose.model('Users', {
   name: {
     type: String,
