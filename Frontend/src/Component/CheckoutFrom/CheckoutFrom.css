@@ -1,94 +1,106 @@
-/* General styling for the checkout form */
-.checkout-form {
-  width: 100%;
-  max-width: 600px; /* Increased width for a cart-like appearance */
-  margin: 50px auto;
-  padding: 25px;
-  background-color: #f8f9fa; /* Light grey background for a cart look */
-  border: 1px solid #ccc; /* Subtle border for distinction */
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  font-family: 'Arial', sans-serif;
+/* General Container Styles */
+.checkout-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for better contrast */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Title styling */
-.checkout-title {
-  text-align: left; /* Align left to match a cart's summary layout */
-  font-size: 22px;
-  margin-bottom: 25px;
-  color: #333;
+/* Header Styles */
+.checkout-header {
+  text-align: center;
+  font-size: 2rem;
   font-weight: bold;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
-}
-
-/* CardElement container styling */
-.checkout-card-element {
-  margin: 20px 0;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #ffffff;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
-}
-
-/* Pay button styling */
-.checkout-pay-button {
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff; /* Blue for a professional look */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.checkout-pay-button:disabled {
-  background-color: #6c757d; /* Grey for disabled button */
-  cursor: not-allowed;
-}
-
-.checkout-pay-button:hover:not(:disabled) {
-  background-color: #0056b3;
-  transform: scale(1.02); /* Slight scaling for hover effect */
-}
-
-/* Total amount styling */
-.checkout-total {
-  font-size: 20px;
-  color: #333;
-  font-weight: 600;
   margin-bottom: 20px;
+  color: #333;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .checkout-form {
-    padding: 20px;
-  }
-
-  .checkout-title {
-    font-size: 20px;
-  }
-
-  .checkout-pay-button {
-    font-size: 15px;
-  }
+/* Form Styles */
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between form fields */
 }
 
-@media (max-width: 480px) {
-  .checkout-form {
-    padding: 15px;
-  }
+/* Form Group Styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-  .checkout-title {
-    font-size: 18px;
-  }
+/* Label Styling */
+.form-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+}
 
-  .checkout-pay-button {
-    font-size: 14px;
-  }
+/* Input Field Styling */
+.form-input {
+  padding: 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+  border-color: #4CAF50; /* Green border on focus */
+}
+
+/* Error Message Styling */
+.error-message {
+  color: red;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Total Amount Styling */
+.total-amount {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0;
+  color: #333;
+}
+
+/* Payment Button Styling */
+.pay-now-button {
+  padding: 15px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.125rem;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Full width button */
+}
+
+.pay-now-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.pay-now-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.7; /* Dimmed disabled button */
+}
+
+/* Stripe CardElement Styling */
+.StripeElement {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 1rem;
+}
+
+.StripeElement--focus {
+  border-color: #4CAF50; /* Green border on focus */
 }

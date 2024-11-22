@@ -1,7 +1,7 @@
-// Popular.js
+
 import './Popular.css';
-import data_product from '../../Assets/Frontend_Assets/data'
-import Item from '../Item/Item';
+import data_product from '../Assets/Frontend_Assets/data'
+import Item from '../Component/Item/Item';
 
 const Popular = () => {
   return (

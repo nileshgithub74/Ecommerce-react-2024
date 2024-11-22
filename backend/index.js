@@ -319,3 +319,61 @@ app.post('/create-payment-intent', async (req, res) => {
   }
 });
 
+
+
+// Endpoint to create a payment intent
+app.post("/create-payment-intent", async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    // Ensure amount is valid
+    if (!amount || amount <= 0) {
+      return res.status(400).json({ error: "Invalid amount." });
+    }
+
+    // Create payment intent
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(amount * 100), // Amount in cents
+      currency: "usd",
+    });
+
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error("Error creating payment intent:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
+
+
+
+
+
+
+const orderSchema = new mongoose.Schema({
+  cartItems: Array,
+  totalAmount: Number,
+  shippingDetails: Object,
+  paymentStatus: String,
+  orderDate: { type: Date, default: Date.now },
+});
+
+const Order = mongoose.model("Order", orderSchema);
+
+app.post("/api/order", async (req, res) => {
+  try {
+    const { cartItems, totalAmount, shippingDetails, paymentStatus } = req.body;
+
+    if (!cartItems || cartItems.length === 0 || totalAmount <= 0 || !shippingDetails) {
+      return res.status(400).json({ error: "Invalid order details." });
+    }
+
+    // Save order to the database
+    const newOrder = new Order({ cartItems, totalAmount, shippingDetails, paymentStatus });
+    const savedOrder = await newOrder.save();
+
+    res.status(201).json({ message: "Order successfully placed!", order: savedOrder });
+  } catch (error) {
+    console.error("Error saving order:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
+});
