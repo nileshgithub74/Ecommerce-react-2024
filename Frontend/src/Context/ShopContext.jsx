@@ -6,7 +6,8 @@ import { useEffect } from "react";
 
 export const ShopContext = createContext(null);
 
-// Initialize the cart with product IDs as keys and values set to 0
+
+
 const getDefaultCart = () => {
   let cart = {};
   for (let i = 0; i < 300 + 1; i++) {

@@ -1,20 +1,20 @@
-// import { useContext } from "react";
+
 import "./Carditems.css";
 
  
 
 
 import { useContext } from "react";
-import { ShopContext } from "../../Context/ShopContext"; // Import the context here
+import { ShopContext } from "../../Context/ShopContext"; 
 import { useNavigate } from "react-router-dom";
 import remove_icon from "../../Assets/Frontend_Assets/cart_cross_icon.png";
 
 const CardItems = () => {
   const { all_product, cartItems, getTotalAmount, removeFromCart } = useContext(ShopContext);
   const navigate = useNavigate();
-  const totalAmount = getTotalAmount(); // Get the total amount from the context
+  const totalAmount = getTotalAmount();
 
-  // Handle the checkout redirect with total amount passed
+
   const handleCheckout = () => {
     navigate("/checkout", { state: { totalAmount } });
   };

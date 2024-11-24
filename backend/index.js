@@ -32,6 +32,7 @@ app.get("/", (req, res) => {
   res.send("Express App is running");
 });
 
+
 // Image Storage Engine
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -45,7 +46,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Ensure 'upload/images' folder exists
+
 const fs = require("fs");
 const dir = path.join(__dirname, "./upload/images");
 if (!fs.existsSync(dir)) {
@@ -54,7 +55,6 @@ if (!fs.existsSync(dir)) {
 
 // Serve uploaded images
 app.use("/images", express.static(path.join(__dirname, "./upload/images")));
-
 
 
 
