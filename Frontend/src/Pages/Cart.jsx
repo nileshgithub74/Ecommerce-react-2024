@@ -1,11 +1,11 @@
-import CardItems from "../Component/CartItems/CardItems.jsx";
+import CardItems from "../Component/CartItems/Carditems"
+
 
 
 const Cart = () => {
   return (
     <div>
-     <CardItems></CardItems>
-
+    <CardItems/>
     </div>
   )
 }
