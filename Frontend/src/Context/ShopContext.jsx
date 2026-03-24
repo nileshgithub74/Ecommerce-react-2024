@@ -3,6 +3,7 @@
 import { createContext, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
+import all_product from "../Assets/Frontend_Assets/all_product";
 
 export const ShopContext = createContext(null);
 
@@ -18,12 +19,12 @@ const getDefaultCart = () => {
 };
 
 const ShopContextProvider = (props) => {
-  const [all_product, setAll_product] = useState([]);
+  const [all_product_data, setAll_product] = useState(all_product);
 
+  // Using local dummy data instead of fetching from backend
   useEffect(() => {
-    fetch("http://localhost:4000/allproduct")
-      .then((res) => res.json())
-      .then((data) => setAll_product(data));
+    // Set the dummy data directly
+    setAll_product(all_product);
   }, []);
 
   const [cartItems, setCartItems] = useState(getDefaultCart());
@@ -35,7 +36,7 @@ const ShopContextProvider = (props) => {
       
      
       if (updatedCart[itemId] === 1) {
-        const itemInfo = all_product.find((product) => product.id === itemId);
+        const itemInfo = all_product_data.find((product) => product.id === itemId);
         if (itemInfo) {
           setOrderedItems((prevOrdered) => [
             ...prevOrdered,
@@ -46,7 +47,7 @@ const ShopContextProvider = (props) => {
 
       return updatedCart;
     });
-  }, [all_product]);
+  }, [all_product_data]);
 
   const removeFromCart = useCallback((itemId) => {
     setCartItems((prev) => {
@@ -68,17 +69,17 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        const itemInfo = all_product.find((product) => product.id === Number(item));
+        const itemInfo = all_product_data.find((product) => product.id === Number(item));
         if (itemInfo) {
           totalAmount += itemInfo.new_price * cartItems[item];
         }
       }
     }
     return totalAmount;
-  }, [cartItems, all_product]);
+  }, [cartItems, all_product_data]);
 
   const contextValue = {
-    all_product,
+    all_product: all_product_data,
     cartItems,
     addToCart,
     removeFromCart,
