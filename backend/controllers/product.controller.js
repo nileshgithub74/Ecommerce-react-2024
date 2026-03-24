@@ -4,9 +4,10 @@ export const uploadImage = (req, res) => {
   if (!req.file) {
     return res.status(400).json({ success: 0, message: 'No file uploaded' });
   }
+  const backendUrl = process.env.BASE_URL || process.env.BACKEND_URL || 'http://localhost:4000';
   res.json({
     success: 1,
-    image_url: `${process.env.BASE_URL || 'http://localhost:4000'}/images/${req.file.filename}`,
+    image_url: `${backendUrl}/images/${req.file.filename}`,
   });
 };
 

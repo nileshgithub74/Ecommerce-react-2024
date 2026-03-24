@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model.js';
+import { createClerkClient } from '@clerk/backend';
 
 export const getAllUsers = async (_req, res) => {
   try {
@@ -7,6 +8,24 @@ export const getAllUsers = async (_req, res) => {
     res.json(users);
   } catch (error) {
     res.status(500).json({ success: false, message: 'Failed to fetch users', error: error.message });
+  }
+};
+
+export const getClerkUsers = async (_req, res) => {
+  try {
+    const clerk = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });
+    const response = await clerk.users.getUserList({ limit: 100, orderBy: '-created_at' });
+    const users = response.data.map((u) => ({
+      id: u.id,
+      name: [u.firstName, u.lastName].filter(Boolean).join(' ') || u.username || '—',
+      email: u.emailAddresses?.[0]?.emailAddress || '—',
+      imageUrl: u.imageUrl,
+      createdAt: u.createdAt,
+      lastSignInAt: u.lastSignInAt,
+    }));
+    res.json({ total: response.totalCount, users });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Failed to fetch Clerk users', error: error.message });
   }
 };
 
