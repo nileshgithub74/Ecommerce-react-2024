@@ -1,214 +1,73 @@
-import { useState } from "react";
-import "./Css/LoginSignup.css";
+import { SignIn, SignUp } from '@clerk/clerk-react';
+import { useState } from 'react';
+import { useUser } from '@clerk/clerk-react';
+import { Navigate } from 'react-router-dom';
 
 const LoginSignUp = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const [formdata, setFormData] = useState({
-    username: "",
-    password: "",
-    email: "",
-    confirmPassword: "", // Add confirmPassword for signup form
-  });
+  const { isSignedIn, isLoaded } = useUser();
 
-  const handleError = (message) => {
-    alert(message); // Show the error in an alert box
-  };
-
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [id]: value, // Dynamically update the form field
-    }));
-  };
-
-  const login = async () => {
-    const { email, password } = formdata;
-    if (!email || !password) {
-      handleError("Please provide an email and password.");
-      return;
-    }
-
-    console.log("Logging in with email:", email, "password:", password); // Debugging line
-
-    try {
-      const response = await fetch("http://localhost:4000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-      console.log("Login response data:", data); // Debugging line
-
-      if (data.success) {
-        localStorage.setItem("token", data.token);
-        window.location.href = "/"; // Redirect to home page after successful login
-      } else {
-        handleError(data.errors || "Login failed.");
-      }
-    } catch (err) {
-      handleError("An error occurred during login.", err);
-    }
-  };
-
-  const signup = async () => {
-    const { username, email, password, confirmPassword } = formdata;
-    if (!username || !email || !password || !confirmPassword) {
-      handleError("Please fill in all fields.");
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      handleError("Passwords do not match.");
-      return;
-    }
-
-    try {
-      const response = await fetch("http://localhost:4000/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username,
-          email,
-          password,
-        }),
-      });
-
-      const data = await response.json();
-      if (data.success) {
-        localStorage.setItem("token", data.token);
-        window.location.href = "/"; // Redirect to home page after successful signup
-      } else {
-        handleError(data.errors || "Signup failed.");
-      }
-    } catch (err) {
-      handleError("An error occurred during signup.", err);
-    }
-  };
-
-  const toggleForm = () => {
-    setIsLogin(!isLogin);
-    setFormData({
-      username: "",
-      password: "",
-      email: "",
-      confirmPassword: "", // Reset confirmPassword on form switch
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isLogin) {
-      login();
-    } else {
-      signup();
-    }
-  };
+  // Already logged in → go home
+  if (isLoaded && isSignedIn) return <Navigate to="/" replace />;
 
   return (
-    <div className="loginsignup-container">
-      <div className="form-container">
-        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-        <form onSubmit={handleSubmit}>
-          {isLogin ? (
-            <>
-              <div className="input-field">
-                <label htmlFor="email">Username or Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  placeholder="Enter your username or email"
-                  value={formdata.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="input-field">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  value={formdata.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="input-field">
-                <label htmlFor="username">Username</label>
-                <input
-                  type="text"
-                  id="username"
-                  placeholder="Enter your username"
-                  value={formdata.username}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="input-field">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter your email"
-                  value={formdata.email}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="input-field">
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  placeholder="Enter your password"
-                  value={formdata.password}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="input-field">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirmPassword"
-                  placeholder="Confirm your password"
-                  value={formdata.confirmPassword}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-            </>
-          )}
-
-          <button type="submit" className="submit-btn">
-            {isLogin ? "Login" : "Sign Up"}
-          </button>
-        </form>
-
-        <div className="toggle-form">
-          <p onClick={toggleForm}>
-            {isLogin
-              ? "Don't have an account? Sign Up"
-              : "Already have an account? Login"}
-          </p>
-        </div>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 via-white to-purple-50 px-4 py-12">
+      {/* Toggle tabs */}
+      <div className="flex bg-white rounded-full shadow-sm border border-gray-100 p-1 mb-6">
+        <button
+          onClick={() => setIsLogin(true)}
+          className={`px-8 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+            isLogin ? 'bg-red-500 text-white shadow-md' : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Sign In
+        </button>
+        <button
+          onClick={() => setIsLogin(false)}
+          className={`px-8 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
+            !isLogin ? 'bg-red-500 text-white shadow-md' : 'text-gray-500 hover:text-gray-700'
+          }`}
+        >
+          Sign Up
+        </button>
       </div>
+
+      {/* Clerk component */}
+      {isLogin ? (
+        <SignIn
+          routing="hash"
+          afterSignInUrl="/"
+          appearance={{
+            elements: {
+              rootBox: 'w-full max-w-md',
+              card: 'rounded-3xl shadow-xl border border-gray-100',
+              headerTitle: 'text-2xl font-bold text-gray-900',
+              headerSubtitle: 'text-gray-500 text-sm',
+              formButtonPrimary: 'bg-red-500 hover:bg-red-600 text-white rounded-xl py-3 font-semibold transition-all',
+              formFieldInput: 'rounded-xl border-gray-200 bg-gray-50 focus:ring-red-400 text-sm',
+              footerActionLink: 'text-red-500 hover:underline font-semibold',
+              socialButtonsBlockButton: 'rounded-xl border border-gray-200 hover:bg-gray-50 transition-all',
+            },
+          }}
+        />
+      ) : (
+        <SignUp
+          routing="hash"
+          afterSignUpUrl="/"
+          appearance={{
+            elements: {
+              rootBox: 'w-full max-w-md',
+              card: 'rounded-3xl shadow-xl border border-gray-100',
+              headerTitle: 'text-2xl font-bold text-gray-900',
+              headerSubtitle: 'text-gray-500 text-sm',
+              formButtonPrimary: 'bg-red-500 hover:bg-red-600 text-white rounded-xl py-3 font-semibold transition-all',
+              formFieldInput: 'rounded-xl border-gray-200 bg-gray-50 focus:ring-red-400 text-sm',
+              footerActionLink: 'text-red-500 hover:underline font-semibold',
+              socialButtonsBlockButton: 'rounded-xl border border-gray-200 hover:bg-gray-50 transition-all',
+            },
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -1,16 +1,13 @@
-import Navbar from "./component/Navbar/Navbar"
-
-import Admin from "./Pages/Admin/Admin"
-
+import Navbar from './component/Navbar/Navbar';
+import Admin from './Pages/Admin/Admin';
 
 const App = () => {
   return (
-    <>
-    <Navbar/>
-    <Admin/>
-    
-    </>
-  )
-}
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      <Navbar />
+      <Admin />
+    </div>
+  );
+};
 
-export default App
+export default App;
